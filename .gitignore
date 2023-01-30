@@ -2,5 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-rawData/
-processedData/
+RawData/
+ProcessedData/
