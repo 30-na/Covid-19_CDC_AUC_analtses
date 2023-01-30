@@ -50,7 +50,7 @@ the probability that given two randomly selected observations from different lev
 
 Datasets:  
 1. [United States COVID-19 Community Levels by County](https://data.cdc.gov/Public-Health-Surveillance/United-States-COVID-19-Community-Levels-by-County/3nnm-4jni)
-
+2. [COVID-19 Reported Patient Impact and Hospital Capacity by Facility](https://beta.healthdata.gov/Hospital/COVID-19-Reported-Patient-Impact-and-Hospital-Capa/anag-cw7u)
 
 -----------------------
 
