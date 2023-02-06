@@ -1,14 +1,25 @@
 library(pROC)
 library(ggplot2)
-library(plotROC)
+library(data.table)
 library(dplyr)
+library(tidyr)
 
 # list of files for each week
 files_list = list.files("ProcessedData", pattern = "rbind_data_week.*.RDA")
+# make empty data frame
 colNames = c("week", "hospital_admission", "inpatient_bed", "comparison")
 auc_data = data.frame(matrix(nrow=0, ncol=length(colNames)))
 colnames(auc_data) = colNames
 
+# load CDC community level by county
+community_level_county_file = fread("rawData/United_States_COVID-19_Community_Levels_by_County.csv")
+community_lvl_data = community_level_county_file %>%
+    mutate(date_updated = as.Date(date_updated, format="%Y/%m/%d"))
+
+
+weekdays = sort(unique(community_lvl_data$date_updated))
+weekIndex = seq(1, length(weekdays)-3, by=3)
+weekDates = weekdays[weekIndex]
 
 for(i in 1:length(files_list)){
     load(paste("ProcessedData/", files_list[i], sep=""))
@@ -22,7 +33,7 @@ for(i in 1:length(files_list)){
     # calculate AUC for hospitalization
     
     #open jpg file
-    jpeg(paste("Figures/auc_week", i , ".jpg", sep=""), width = 1000, height = 1000, res=180)
+    jpeg(paste("Figures/auc_", weekDates[i] , ".jpg", sep=""), width = 1000, height = 1000, res=180)
     par(pty = "s")
     AUC_hospital = roc(predict_data$predict_severe_outcome,
                        predict_data$actual_severe_hospital_admission,
@@ -62,6 +73,36 @@ for(i in 1:length(files_list)){
     
 }
 
+
+
+auc_ggplot_data = auc_data %>%
+    mutate(date = weekDates) %>%
+    select(date,
+           inpatient_bed,
+           hospital_admission) %>%
+    tidyr::pivot_longer(cols = c(hospital_admission, inpatient_bed),
+                        names_to = "predictor",
+                        values_to = "AUROC")
+    
+
+
+# plot to show AUC performance in time
+fig_auc_performance = ggplot(data = auc_ggplot_data,
+                                    aes(x = date,
+                                        y = AUROC,
+                                        col = predictor,
+                                        group_by = F)) + 
+    geom_point() +
+    labs(title = "AUROC analyses for CDC Community level in 3 weeks later",
+         x = "Date",
+         y = "AUROC") +
+    theme_classic() +
+    geom_line(alpha = .5)+
+    scale_x_date(date_breaks = "6 week")
+
+ggsave("Figures/fig_auc_performance.jpg",
+       fig_auc_performance, 
+       height=4,width=8,scale=1.65)
 
 
 # # County-level Area Under Receiver Operating Characteristic (AUROC) analyses
