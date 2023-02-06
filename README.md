@@ -44,15 +44,13 @@ Measures of the impact of COVID-19 in terms of hospitalizations and healthcare s
 
 ### Performance of community transmission levels and COVID-19 Community Levels
 * (AUROC) analyses: Area Under Receiver Operating Characteristic.  
-the probability that given two randomly selected observations from different levels, the one with the more severe outcome comes from a higher transmission or higher COVID-19 Community Level. A score of 0.50 would correspond to random chance and a score of 1 would indicate that worse outcomes always correspond to a higher transmission or higher COVID-19 Community Level. AUROC values reflect the likelihood that for two counties with different levels, the county with the higher severity has the most severe outcome 3 weeks later.
-* 
+the probability that given two randomly selected observations from different levels, the one with the more severe outcome comes from a higher transmission or higher COVID-19 Community Level. A score of 0.50 would correspond to random chance and a score of 1 would indicate that worse outcomes always correspond to a higher transmission or higher COVID-19 Community Level. AUROC values reflect the likelihood that for two counties with different levels, the county with the higher severity has the most severe outcome 3 weeks later. 
 -----------------------
 
 Datasets:  
 1. [United States COVID-19 Community Levels by County](https://data.cdc.gov/Public-Health-Surveillance/United-States-COVID-19-Community-Levels-by-County/3nnm-4jni)
 2. [COVID-19 Reported Patient Impact and Hospital Capacity by Facility](https://beta.healthdata.gov/Hospital/COVID-19-Reported-Patient-Impact-and-Hospital-Capa/anag-cw7u)
 3. [Provisional COVID-19 Death Counts in the United States by County](https://data.cdc.gov/NCHS/Provisional-COVID-19-Death-Counts-in-the-United-St/kn79-hsxy)
-4. 
 -----------------------
 
 Sources:  
